@@ -61,9 +61,9 @@ public class BinarySearchTree {
 		}
 		return currentNode;
 	}
-	
-	BSTNode<Integer> maximum(){
-		return maximum (root);
+
+	BSTNode<Integer> maximum() {
+		return maximum(root);
 	}
 
 	BSTNode<Integer> maximum(BSTNode<Integer> node) {
@@ -89,10 +89,10 @@ public class BinarySearchTree {
 		while (currentNode.parent != null && currentNode.parent.left != currentNode) {
 			currentNode = currentNode.parent;
 		}
-		
+
 		return currentNode.parent;
 	}
-	
+
 	BSTNode<Integer> predecessor(BSTNode<Integer> node) {
 
 		if (node.left != null) {
@@ -104,7 +104,40 @@ public class BinarySearchTree {
 		while (currentNode.parent != null && currentNode.parent.right != currentNode) {
 			currentNode = currentNode.parent;
 		}
-		
+
 		return currentNode.parent;
+	}
+
+	void transplant(BSTNode<Integer> u, BSTNode<Integer> v) {
+		if (u.parent == null) { // u is root
+			root = v;
+		} else if (u.parent.left == u) {
+			u.parent.left = v;
+		} else if (u.parent.right == u) {
+			u.parent.right = v;
+		}
+		if (v != null) {
+			v.parent = u.parent;
+		}
+	}
+
+	void delete(BSTNode<Integer> z) {
+		if(z.left == null){
+			transplant(z, z.right);
+		}else if(z.right == null){
+			transplant(z, z.left);
+		}else{
+			BSTNode<Integer> y = minimum(z.right);
+			
+			if(y.parent != z){
+				transplant(y, y.right);
+				y.right = z.right;
+				y.right.parent = y;
+			}
+			
+			transplant(z, y);
+			y.left = z.left;
+			y.left.parent = y;
+		}
 	}
 }

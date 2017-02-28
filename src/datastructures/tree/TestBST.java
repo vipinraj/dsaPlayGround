@@ -39,7 +39,9 @@ public class TestBST {
 		System.out.println(bst.successor(n4).key);
 		System.out.println("--------------predecessor----------------");
 		System.out.println(bst.predecessor(n5).key);
-
+		System.out.println("--------------delete----------------");
+		bst.delete(n1);
+		System.out.println(bst.search(5).key);
 	}
 
 	static void inorderTreeWalk(BSTNode<Integer> node) {
