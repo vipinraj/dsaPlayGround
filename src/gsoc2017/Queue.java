@@ -1,5 +1,9 @@
 package gsoc2017;
 
+/**
+ * @author vipin
+ * Queue implementation 
+ */
 public class Queue<Type> {
 	Type[] Q;
 	Integer head = 0;
