@@ -31,7 +31,7 @@ public class Queue<Type> {
 		}
 	}
 
-	//remove element from the heap of queue
+	//remove element from the head of queue
 	Type pop() throws Exception {
 
 		if (this.head == this.tail) {
@@ -48,7 +48,7 @@ public class Queue<Type> {
 		return x;
 	}
 
-	//get the element at the heap of queue
+	//get the element at the head of queue
 	Type peek() throws Exception {
 		if (this.head == this.tail) {
 			throw new Exception("Queue is empty");
