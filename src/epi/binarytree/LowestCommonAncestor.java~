@@ -1,0 +1,23 @@
+package epi.binarytree
+  
+public class LowestCommonAncestor {
+  
+  private static HashMap<BinaryTreeNode<String>,BinaryTreeNode<String>> parentMapping;
+  
+  public static void main(String[] args) { 
+    
+  }
+  
+  public static getParents(BinaryTreeNode<String> node) {
+    if (node == null) {
+      return;
+    }
+    if (node.left != null) {
+      parentMapping.put(node.left, node);
+    }
+    if (node.right != null) {
+      parentMapping.put(node.right, node);
+    }
+  }
+  
+}

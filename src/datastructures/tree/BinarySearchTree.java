@@ -138,6 +138,7 @@ public class BinarySearchTree {
 			transplant(z, y);
 			y.left = z.left;
 			y.left.parent = y;
+			
 		}
 	}
 }

@@ -1,0 +1,10 @@
+package epi.binarytree;
+
+public class CheckIfSymmetric {
+  
+  public static void main(String[] args) { 
+    BinaryTreeNode<Integer> root = BinaryTreeTest.getSampleSymmetricBinaryTree();
+  }
+  
+  
+}

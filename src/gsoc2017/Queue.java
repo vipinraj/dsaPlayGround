@@ -16,6 +16,7 @@ public class Queue<Type> {
 		this.length = length;
 	}
 
+	//insert element into queue
 	void put(Type element) throws Exception {
 
 		if ((this.tail + 1) % this.length == this.head) {
@@ -30,6 +31,7 @@ public class Queue<Type> {
 		}
 	}
 
+	//remove element from the head of queue
 	Type pop() throws Exception {
 
 		if (this.head == this.tail) {
@@ -46,6 +48,7 @@ public class Queue<Type> {
 		return x;
 	}
 
+	//get the element at the head of queue
 	Type peek() throws Exception {
 		if (this.head == this.tail) {
 			throw new Exception("Queue is empty");

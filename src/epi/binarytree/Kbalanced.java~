@@ -1,0 +1,36 @@
+package epi.binarytree;
+/**
+ * Auto Generated Java Class.
+ */
+public class Kbalanced {
+  
+  
+  public static void main(String[] args) { 
+    
+  }
+  
+  public static SizeAndNode getNonKBalanced(int k, BinaryTreeNode<String> node) {
+    if (node == null) {
+      return new SizeAndNode(0, null);
+    }
+    
+    SizeAndNode left = getNonKBalanced(k, node.left);
+    SizeAndNode right = getNonKBalanced(k, node.right);
+    
+    if (Math.abs(left.size - right.size) > k) {
+      return new SizeAndNode(left.size + right.size, node);
+    }
+    return new SizeAndNode(left.size + right.size, node);
+  }
+  
+}
+
+class SizeAndNode {
+  public int size;
+  public BinaryTreeNode<String> node;
+  
+  SizeAndNode(int size, BinaryTreeNode<String> node) {
+    this.size = size;
+    this.node = node;
+  }
+}

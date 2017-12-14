@@ -1,0 +1,15 @@
+/**
+ * Auto Generated Java Class.
+ */
+public class CountNumberOfNodes {
+  
+  /* ADD YOUR CODE HERE */
+  public static void main(String args[]) {
+    
+  }
+  
+  public static int countNodes(BinaryTreNode<String>) {
+  
+  }
+  
+}
