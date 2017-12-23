@@ -13,7 +13,6 @@ public class TraverseWithoutRecursion {
     preOrderTraverseWithoutRecursionMyMethod(tree);
     System.out.println();
     preOrderTraverseWithoutRecursionMethod2(tree);
-    System.out.println();
     postOrderTraverseWithoutRecursion(tree);
   }
   
@@ -66,8 +65,7 @@ public class TraverseWithoutRecursion {
         }
       }
     }
-   
-   // my own method
+    
    public static void postOrderTraverseWithoutRecursion(BinaryTreeNode<String> treeNode) {
       
       Stack<BinaryTreeNode<String>> s1 = new Stack<BinaryTreeNode<String>>();
@@ -85,14 +83,13 @@ public class TraverseWithoutRecursion {
             s1.pop();
             s2.pop();
             System.out.print(node.data + ",");
-          } else {            
+            current = s1.pop();
+          } else if (node.right != null) {
+            s2.push(node);
             current = node.right;
-            if (node.right == null) {
-              System.out.print(node.data + ",");
-              s1.pop();
-            } else {
-              s2.push(node);
-            }
+          } else {
+            System.out.print(node.data + ",");
+            current = s1.pop();
           }
         }
       }

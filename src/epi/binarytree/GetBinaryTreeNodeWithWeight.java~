@@ -1,0 +1,17 @@
+/**
+ * 
+ */
+package epi.binarytree;
+
+public class GetBinaryTreeNodeWithWeight {
+  
+  
+  public static void main(String[] args) { 
+    
+    BinaryTreeNode<Integer> root = TestBinaryTree.getSampleIntegerBinaryTree();
+    
+  }
+  
+  /* ADD YOUR CODE HERE */
+  
+}

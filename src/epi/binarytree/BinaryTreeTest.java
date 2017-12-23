@@ -1,7 +1,8 @@
 package epi.binarytree;
 
 public class BinaryTreeTest {
- 
+ public static BinaryTreeNode<String> mNode;
+ public static BinaryTreeNode<String> nNode;
  public static void main(String[] args) {
   
   BinaryTreeNode<String> root = getSampleBinaryTree();
@@ -44,8 +45,10 @@ public class BinaryTreeTest {
   l.data = "L";
   BinaryTreeNode<String> m = new BinaryTreeNode<>();
   m.data = "M";
+  mNode = m;
   BinaryTreeNode<String> n = new BinaryTreeNode<>();
   n.data = "N";
+  nNode = n;
   BinaryTreeNode<String> o = new BinaryTreeNode<>();
   o.data = "O";
   BinaryTreeNode<String> p = new BinaryTreeNode<>();
@@ -180,6 +183,112 @@ public class BinaryTreeTest {
    c.right = d;
    e.left = f;
    f.left = g;
+   
+   return a;
+ }
+ 
+ public static BinaryTreeNode<Integer> getSampleBinaryDigitTree() {
+   BinaryTreeNode<Integer> a = new BinaryTreeNode<Integer>();
+   a.data = 1;
+   BinaryTreeNode<Integer> b = new BinaryTreeNode<Integer>();
+   b.data = 0;
+   BinaryTreeNode<Integer> c = new BinaryTreeNode<Integer>();
+   c.data = 0;
+   BinaryTreeNode<Integer> d = new BinaryTreeNode<Integer>();
+   d.data = 0;
+   BinaryTreeNode<Integer> e = new BinaryTreeNode<Integer>();
+   e.data = 1;
+   BinaryTreeNode<Integer> f = new BinaryTreeNode<Integer>();
+   f.data = 1;
+   BinaryTreeNode<Integer> g = new BinaryTreeNode<Integer>();
+   g.data = 1;
+   BinaryTreeNode<Integer> h = new BinaryTreeNode<Integer>();
+   h.data = 0;
+   BinaryTreeNode<Integer> i = new BinaryTreeNode<Integer>();
+   i.data = 1;
+   BinaryTreeNode<Integer> j = new BinaryTreeNode<Integer>();
+   j.data = 0;
+   BinaryTreeNode<Integer> k = new BinaryTreeNode<Integer>();
+   k.data = 0;
+   BinaryTreeNode<Integer> l = new BinaryTreeNode<Integer>();
+   l.data = 1;
+   BinaryTreeNode<Integer> m = new BinaryTreeNode<Integer>();
+   m.data = 1;
+   BinaryTreeNode<Integer> n = new BinaryTreeNode<Integer>();
+   n.data = 0;
+   BinaryTreeNode<Integer> o = new BinaryTreeNode<Integer>();
+   o.data = 0;
+   BinaryTreeNode<Integer> p = new BinaryTreeNode<Integer>();
+   p.data = 0;
+   
+   a.left = b;
+   a.right = i;
+   b.left = c;
+   b.right = f;
+   i.left = j;
+   i.right = o;
+   c.left = d;
+   c.right = e;
+   f.right = g;
+   j.right = k;
+   o.right = p;
+   g.left = h;
+   k.left = l;
+   k.right = n;
+   l.right = m;
+   
+   return a;
+ }
+ 
+ public static BinaryTreeNode<Integer> getSampleIntegerBinaryTree() {
+   BinaryTreeNode<Integer> a = new BinaryTreeNode<Integer>();
+   a.data = 314;
+   BinaryTreeNode<Integer> b = new BinaryTreeNode<Integer>();
+   b.data = 6;
+   BinaryTreeNode<Integer> c = new BinaryTreeNode<Integer>();
+   c.data = 271;
+   BinaryTreeNode<Integer> d = new BinaryTreeNode<Integer>();
+   d.data = 28;
+   BinaryTreeNode<Integer> e = new BinaryTreeNode<Integer>();
+   e.data = 0;
+   BinaryTreeNode<Integer> f = new BinaryTreeNode<Integer>();
+   f.data = 561;
+   BinaryTreeNode<Integer> g = new BinaryTreeNode<Integer>();
+   g.data = 3;
+   BinaryTreeNode<Integer> h = new BinaryTreeNode<Integer>();
+   h.data = 17;
+   BinaryTreeNode<Integer> i = new BinaryTreeNode<Integer>();
+   i.data = 6;
+   BinaryTreeNode<Integer> j = new BinaryTreeNode<Integer>();
+   j.data = 2;
+   BinaryTreeNode<Integer> k = new BinaryTreeNode<Integer>();
+   k.data = 1;
+   BinaryTreeNode<Integer> l = new BinaryTreeNode<Integer>();
+   l.data = 401;
+   BinaryTreeNode<Integer> m = new BinaryTreeNode<Integer>();
+   m.data = 641;
+   BinaryTreeNode<Integer> n = new BinaryTreeNode<Integer>();
+   n.data = 257;
+   BinaryTreeNode<Integer> o = new BinaryTreeNode<Integer>();
+   o.data = 271;
+   BinaryTreeNode<Integer> p = new BinaryTreeNode<Integer>();
+   p.data = 28;
+   
+   a.left = b;
+   a.right = i;
+   b.left = c;
+   b.right = f;
+   i.left = j;
+   i.right = o;
+   c.left = d;
+   c.right = e;
+   f.right = g;
+   j.right = k;
+   o.right = p;
+   g.left = h;
+   k.left = l;
+   k.right = n;
+   l.right = m;
    
    return a;
  }
