@@ -68,6 +68,11 @@ public class TraverseWithoutRecursion {
     }
    
    // my own method
+    // - keep two stacks s1, s2
+    // - if a node "a" has right child, add "a" to s2 and do not pop it from s1.
+    // - if top element of s1 and s2 are same pop both and print (happens when the right subtree of the node is completely processed) 
+    // - if a node "a" does'nt have right child and left child pop and print
+    
    public static void postOrderTraverseWithoutRecursion(BinaryTreeNode<String> treeNode) {
       
       Stack<BinaryTreeNode<String>> s1 = new Stack<BinaryTreeNode<String>>();
