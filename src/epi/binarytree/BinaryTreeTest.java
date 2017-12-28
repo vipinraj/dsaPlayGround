@@ -3,6 +3,9 @@ package epi.binarytree;
 public class BinaryTreeTest {
  public static BinaryTreeNode<String> mNode;
  public static BinaryTreeNode<String> nNode;
+ public static BinaryTreeNode<String> oNode;
+ public static BinaryTreeNode<String> aNode;
+
  public static void main(String[] args) {
   
   BinaryTreeNode<String> root = getSampleBinaryTree();
@@ -21,6 +24,7 @@ public class BinaryTreeTest {
   // nodes
   BinaryTreeNode<String> a = new BinaryTreeNode<>();
   a.data = "A";
+  aNode = a;
   BinaryTreeNode<String> b = new BinaryTreeNode<>();
   b.data = "B";
   BinaryTreeNode<String> c = new BinaryTreeNode<>();
@@ -51,6 +55,7 @@ public class BinaryTreeTest {
   nNode = n;
   BinaryTreeNode<String> o = new BinaryTreeNode<>();
   o.data = "O";
+  oNode = o;
   BinaryTreeNode<String> p = new BinaryTreeNode<>();
   p.data = "P";
   // additional node
@@ -59,20 +64,51 @@ public class BinaryTreeTest {
   
   // create associations
   a.left = b;
+  b.parent = a;
+  a.nodeCount = 16;
   a.right = i;
+  i.parent = a;
   b.left = c;
+  c.parent = b;
   b.right = f;
+  f.parent = b;
+  b.nodeCount = 7;
   i.left = j;
+  j.parent = i;
   i.right = o;
+  o.parent = i;
+  i.nodeCount = 8;
   c.left = d;
+  d.parent = c;
   c.right = e;
+  e.parent = c;
+  c.nodeCount = 3;
   f.right = g;
+  g.parent = f;
+  f.nodeCount = 3;
   j.right = k;
+  k.parent = j;
+  j.nodeCount = 5;
   o.right = p;
+  p.parent = o;
+  o.nodeCount = 2;
   g.left = h;
+  h.parent = g;
+  g.nodeCount = 2;
   k.left = l;
+  l.parent = k;
   k.right = n;
+  n.parent = k;
+  k.nodeCount = 4;
   l.right = m;
+  m.parent = l;
+  l.nodeCount = 2;
+  d.nodeCount = 1;
+  e.nodeCount = 1;
+  h.nodeCount = 1;
+  m.nodeCount = 1;
+  n.nodeCount = 1;
+  p.nodeCount = 1;
   
   // return root node
   return a;
@@ -293,7 +329,7 @@ public class BinaryTreeTest {
    return a;
  }
  
- public static void preOrderTraversal(BinaryTreeNode<String> root) {
+ public static void preOrderTraversal(BinaryTreeNode<?> root) {
   if (root == null) {
    return;
   }
@@ -316,5 +352,17 @@ public class BinaryTreeTest {
   postOrderTraversal(root.left);
   postOrderTraversal(root.right);
   System.out.print(root.data + ", ");
+ }
+ 
+ public static void visualize(BinaryTreeNode<?> root, int noOfSpaces) {
+  if (root == null) {
+   return;
+  } 
+  visualize(root.left, noOfSpaces - 6);
+  for (int i = 0; i < noOfSpaces; i++) {
+    System.out.print(" ");
+  }  
+  System.out.println(root.data + "\n");
+  visualize(root.right, noOfSpaces - 6);
  }
 }

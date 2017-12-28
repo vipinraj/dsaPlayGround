@@ -15,6 +15,8 @@ public class TraverseWithoutRecursion {
     preOrderTraverseWithoutRecursionMethod2(tree);
     System.out.println();
     postOrderTraverseWithoutRecursion(tree);
+    System.out.println();
+    postOrderTraverseWithoutRecursion2(tree);
   }
   
   
@@ -89,15 +91,65 @@ public class TraverseWithoutRecursion {
           if (node != null && node2 != null && node == node2) {
             s1.pop();
             s2.pop();
-            System.out.print(node.data + ",");
+            System.out.print(node.data + ", ");
           } else {            
             current = node.right;
             if (node.right == null) {
-              System.out.print(node.data + ",");
+              System.out.print(node.data + ", ");
               s1.pop();
             } else {
               s2.push(node);
             }
+          }
+        }
+      }
+    }
+   // with one stack
+   public static void postOrderTraverseWithoutRecursion2(BinaryTreeNode<String> treeNode) {
+      
+      Stack<BinaryTreeNode<String>> s = new Stack<BinaryTreeNode<String>>();
+      BinaryTreeNode<String> current = treeNode;
+      
+      while (!s.empty() || current != null) {
+        if (current != null) {
+          s.push(current);
+          current = current.left;
+        } else {
+          BinaryTreeNode<String> node1 = !s.empty() ? s.pop() : null;
+          BinaryTreeNode<String> node2 = !s.empty() ? s.peek() : null;
+          
+          if (node1 != null && node2 != null && node1 == node2) {
+            s.pop();
+            System.out.print(node1.data + ", ");
+          } else {
+            current = node1.right;
+            if (current == null) {
+              System.out.print(node1.data + ", ");
+            } else {
+              s.push(node1);
+              s.push(node1);
+            }
+          }
+        }
+      }
+    }
+   // with one stack: to be completed (https://www.youtube.com/watch?v=xLQKdq0Ffjg)
+   public static void postOrderTraverseWithoutRecursion3(BinaryTreeNode<String> treeNode) {
+      
+      Stack<BinaryTreeNode<String>> s = new Stack<BinaryTreeNode<String>>();
+      BinaryTreeNode<String> current = treeNode;
+      
+      while (!s.empty() || current != null) {
+        if (current != null) {
+          s.push(current);
+          current = current.left;
+        } else {
+          BinaryTreeNode<String> node = !s.empty() ? s.peek() : null;
+          if (node.right == null) {
+            System.out.print(node.data + ", ");
+            s.pop();
+          } else {
+            current = node.right;
           }
         }
       }

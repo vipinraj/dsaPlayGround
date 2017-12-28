@@ -13,6 +13,7 @@ public class TraverseWithoutRecursion {
     preOrderTraverseWithoutRecursionMyMethod(tree);
     System.out.println();
     preOrderTraverseWithoutRecursionMethod2(tree);
+    System.out.println();
     postOrderTraverseWithoutRecursion(tree);
   }
   
@@ -65,6 +66,12 @@ public class TraverseWithoutRecursion {
         }
       }
     }
+   
+   // my own method
+    // - keep two stacks s1, s2
+    // - if a node "a" has right child, add "a" to s2 and do not pop it from s1.
+    // - if top element of s1 and s2 are same pop both and print (happens when the right subtree of the node is completely processed) 
+    // - if a node "a" does'nt have right child and left child pop and print
     
    public static void postOrderTraverseWithoutRecursion(BinaryTreeNode<String> treeNode) {
       
@@ -83,13 +90,14 @@ public class TraverseWithoutRecursion {
             s1.pop();
             s2.pop();
             System.out.print(node.data + ",");
-            current = s1.pop();
-          } else if (node.right != null) {
-            s2.push(node);
+          } else {            
             current = node.right;
-          } else {
-            System.out.print(node.data + ",");
-            current = s1.pop();
+            if (node.right == null) {
+              System.out.print(node.data + ",");
+              s1.pop();
+            } else {
+              s2.push(node);
+            }
           }
         }
       }

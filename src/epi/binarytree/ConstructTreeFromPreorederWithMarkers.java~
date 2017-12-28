@@ -1,0 +1,31 @@
+/**
+ * 10.13
+ */
+
+package epi.binarytree;
+
+public class ConstructTreeFromPreorederWithMarkers {
+  private static Integer subtreeIdx;
+    
+  public static void main(String[] args) { 
+    
+  }
+  
+  private static BinaryTreeNode<String> reconstructPreorderSubtree(List<String> preorder) {
+    String data = preorder.get(subtreeIdx);
+    subtreeIdx++;
+    if (data == null) {
+      return null;
+    }
+    
+    BinaryTreeNode<String> leftSubtree = reconstructPreorderSubtree(preorder);
+    BinaryTreeNode<String> rightSubtree = reconstructPreorderSubtree(preorder);
+    BinaryTreeNode<String> node = new BinaryTreeNode<String>();
+    node.data = data;
+    node.left = leftSubtree;
+    node.right = rightSubtree;
+    return node;
+  }
+  
+  
+}
