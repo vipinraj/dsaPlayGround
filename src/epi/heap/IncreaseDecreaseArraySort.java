@@ -42,7 +42,7 @@ public class IncreaseDecreaseArraySort {
           minHeap.add(arr.get(i + offset));
         }
         if (i + 5 > arr.size()) {
-          i = 0; 
+          i = 0;
           offset++;
         }
       }
