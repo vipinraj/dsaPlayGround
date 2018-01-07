@@ -329,7 +329,7 @@ public class BinaryTreeTest {
    return a;
  }
  
- public static void preOrderTraversal(BinaryTreeNode<String> root) {
+ public static void preOrderTraversal(BinaryTreeNode<?> root) {
   if (root == null) {
    return;
   }
@@ -352,5 +352,17 @@ public class BinaryTreeTest {
   postOrderTraversal(root.left);
   postOrderTraversal(root.right);
   System.out.print(root.data + ", ");
+ }
+ 
+ public static void visualize(BinaryTreeNode<?> root, int noOfSpaces) {
+  if (root == null) {
+   return;
+  } 
+  visualize(root.left, noOfSpaces - 6);
+  for (int i = 0; i < noOfSpaces; i++) {
+    System.out.print(" ");
+  }  
+  System.out.println(root.data + "\n");
+  visualize(root.right, noOfSpaces - 6);
  }
 }

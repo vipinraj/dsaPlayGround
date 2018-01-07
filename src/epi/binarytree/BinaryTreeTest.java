@@ -5,6 +5,8 @@ public class BinaryTreeTest {
  public static BinaryTreeNode<String> nNode;
  public static BinaryTreeNode<String> oNode;
  public static BinaryTreeNode<String> aNode;
+ public static BinaryTreeNode<String> fNode;
+ public static BinaryTreeNode<String> jNode;
 
  public static void main(String[] args) {
   
@@ -61,7 +63,8 @@ public class BinaryTreeTest {
   // additional node
   BinaryTreeNode<String> q = new BinaryTreeNode<>();
   //q.data = "Q";
-  
+  fNode = f;
+  jNode = j;
   // create associations
   a.left = b;
   b.parent = a;
@@ -223,6 +226,65 @@ public class BinaryTreeTest {
    return a;
  }
  
+ public static BinaryTreeNode<String> getSamplePerfectBinaryTree() {
+   // nodes
+  BinaryTreeNode<String> a = new BinaryTreeNode<>();
+  a.data = "A";
+  aNode = a;
+  BinaryTreeNode<String> b = new BinaryTreeNode<>();
+  b.data = "B";
+  BinaryTreeNode<String> c = new BinaryTreeNode<>();
+  c.data = "C";
+  BinaryTreeNode<String> d = new BinaryTreeNode<>();
+  d.data = "D";
+  BinaryTreeNode<String> e = new BinaryTreeNode<>();
+  e.data = "E";
+  BinaryTreeNode<String> f = new BinaryTreeNode<>();
+  f.data = "F";
+  BinaryTreeNode<String> g = new BinaryTreeNode<>();
+  g.data = "G";
+  BinaryTreeNode<String> h = new BinaryTreeNode<>();
+  h.data = "H";
+  BinaryTreeNode<String> i = new BinaryTreeNode<>();
+  i.data = "I";
+  BinaryTreeNode<String> j = new BinaryTreeNode<>();
+  j.data = "J";
+  BinaryTreeNode<String> k = new BinaryTreeNode<>();
+  k.data = "K";
+  BinaryTreeNode<String> l = new BinaryTreeNode<>();
+  l.data = "L";
+  BinaryTreeNode<String> m = new BinaryTreeNode<>();
+  m.data = "M";
+  mNode = m;
+  BinaryTreeNode<String> n = new BinaryTreeNode<>();
+  n.data = "N";
+  nNode = n;
+  BinaryTreeNode<String> o = new BinaryTreeNode<>();
+  o.data = "O";
+  oNode = o;
+  BinaryTreeNode<String> p = new BinaryTreeNode<>();
+  p.data = "P";
+  fNode = f;
+  jNode = j;
+  
+  a.left = b;
+  a.right = i;
+  b.left = c;
+  b.right = f;
+  i.left = j;
+  i.right = m;
+  c.left = d;
+  c.right = e;
+  f.left = g;
+  f.right = h;
+  j.left = k;
+  j.right = l;
+  m.left = n;
+  m.right = o;
+  
+  return a;
+ }
+ 
  public static BinaryTreeNode<Integer> getSampleBinaryDigitTree() {
    BinaryTreeNode<Integer> a = new BinaryTreeNode<Integer>();
    a.data = 1;
@@ -365,4 +427,5 @@ public class BinaryTreeTest {
   System.out.println(root.data + "\n");
   visualize(root.right, noOfSpaces - 6);
  }
+ 
 }

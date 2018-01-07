@@ -1,0 +1,17 @@
+package epi.binarytree;
+
+public class Locking {
+  
+  public static void main(String args[]) {
+    BinaryTreeNodeWithLock root = new BinaryTreeNodeWithLock("A");
+    root.left = new BinaryTreeNodeWithLock("B");
+    root.right = new BinaryTreeNodeWithLock("D");
+    root.left.left = new BinaryTreeNodeWithLock("C");
+    root.right.left = new BinaryTreeNodeWithLock("E");
+    root.right.right = new BinaryTreeNodeWithLock("G");
+    root.right.left.left = new BinaryTreeNodeWithLock("F");
+    root.right.right.left = new BinaryTreeNodeWithLock("H");
+    root.right.right.right = new BinaryTreeNodeWithLock("I");
+  }
+  
+}
