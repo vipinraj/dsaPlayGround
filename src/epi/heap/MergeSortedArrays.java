@@ -4,13 +4,14 @@
 package epi.heap;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
+import java.util.List;
 import java.util.Arrays;
 import java.util.Comparator;
 
 public class MergeSortedArrays {
   
   public static void main(String[] args) { 
-    ArrayList<ArrayList<Integer>> sortedArrays = new ArrayList<ArrayList<Integer>>();
+    List<List<Integer>> sortedArrays = new ArrayList<>();
     sortedArrays.add(new ArrayList<Integer>(Arrays.asList(3,5,7)));
     sortedArrays.add(new ArrayList<Integer>(Arrays.asList(0,6)));
     sortedArrays.add(new ArrayList<Integer>(Arrays.asList(0,6,28)));
@@ -18,7 +19,7 @@ public class MergeSortedArrays {
     System.out.println(result);
   }
   // O(nlogk), O(k) | k -> number of sorted arrays
-  public static ArrayList<Integer> mergeSortedArrays(ArrayList<ArrayList<Integer>> sortedArrays) {
+  public static ArrayList<Integer> mergeSortedArrays(List<List<Integer>> sortedArrays) {
     ArrayList<Integer> heads = new ArrayList<>(sortedArrays.size());
     ArrayList<Integer> result = new ArrayList<Integer>();
     
