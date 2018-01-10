@@ -8,7 +8,7 @@ public class CheckHeightBalanced {
 		System.out.println(checkHeightBalanced(root).isBalanced);
 	}
 	
-	public static BalanceStatusWithHeight checkHeightBalanced(BinaryTreeNode<String> root) {
+	public static BalanceStatusWithHeightatusWithHeight checkHeightBalanced(BinaryTreeNode<String> root) {
 		
 		if (root == null) {
 			return new BalanceStatusWithHeight(-1, true);
