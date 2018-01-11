@@ -14,7 +14,7 @@ public class FirstOccuranceOfK {
     System.out.println(findFirstOccurance(input, 4));
   }
   
-  // nlogn
+  //  nlogn
   public static int findFirstOccurance(List<Integer> arr, Integer k) {
     int l = 0;
     int r = arr.size() - 1;
