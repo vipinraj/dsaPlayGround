@@ -1,4 +1,4 @@
-// 12.3, variant nlogn
+// 12.3 nlogn
 package epi.searching;
 import java.util.List;
 import java.util.ArrayList;
