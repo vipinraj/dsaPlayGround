@@ -13,37 +13,41 @@ public class KthLargestElement {
   
   public static void main(String[] args) { 
     List<Integer> arr = new ArrayList<>(Arrays.asList(3,2,4,18,1,9,6,10));
-    arr.get(kthLargest(arr, 2));
+    
+    System.out.println(kthLargest(arr, 3));
   }
   
-  public static int kthLargest(List<Integer> a, int k) {
+  public static Integer kthLargest(List<Integer> a, int k) {
     int r = a.size() - 1;
     int l = 0;
     int m;
-    Random random = new Random(0);
-    int pivotIdx = -1;
+    Random random = new Random();
+    int pivotIdx;
     
     while (l <= r) {
         m = random.nextInt((r - l) + 1) + l;
+        System.out.println("M: " + m);
+        System.out.println("[" + l + ", " + r + "]");
         pivotIdx = partitionByM(a, l, r, m);
-        if (r - pivotIdx + 1 == k) {
-            return pivotIdx;
-        } else if (r - pivotIdx + 1 > k) {
+        if (r - pivotIdx == k - 1) {
+            return a.get(pivotIdx);
+        } else if (r - pivotIdx < k - 1) {
             l =  pivotIdx + 1;      
         } else {
             r = pivotIdx - 1;
             k = k - (r - pivotIdx + 1);
         }
     }
-    return pivotIdx;
+    return null;
   }
   
   public static int partitionByM(List<Integer> a, int l, int r, int m) {
       int mElement = a.get(m);
-      int i = l + 1;
+      int i = l;
       int pos = l;
 
-      Collections.swap(a, m, r);      
+      Collections.swap(a, m, r);
+      System.out.println(a);
       while (i < r) {
           if (a.get(i) < mElement) {
               Collections.swap(a, pos, i);
@@ -52,9 +56,9 @@ public class KthLargestElement {
           i++;
       }
       Collections.swap(a, pos, r);
-      System.out.println(mElement);
-      System.out.println(pos);
+      System.out.println("M element: " + mElement);
       System.out.println(a);
+      System.out.println("Pos:" + pos);
       return pos;
   }
  
