@@ -1,6 +1,8 @@
 package epi.hashtables;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Set;
+import java.util.HashSet;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +14,22 @@ public class SmallestSubarrayCoveringKeywords {
     }
     
     public static Subarray getSmallestSubArray(List<String> paragraph, List<String> keywords) {
+        Map<String, Integer> keywordMap = new HashMap<>();
+        Map<Integer, Subarray> smallestsubArrMap = new HashMap<>();
+        int subArrMinLen = keywords.size();
         
+        for (String word : keywords) {
+            keywordMap.put(word, 0);
+        }
+        
+        int nextSubArrEnd =  subArrMinLen;
+        for (int i = 0; i < paragraph.size(); i++) {
+            int subArrMaxLen = paragraph.size() - i;
+            
+            while (nextSubArrEnd <= i) {
+                
+            }
+        }
         return null;
     }
     
