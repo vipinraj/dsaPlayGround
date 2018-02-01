@@ -21,7 +21,7 @@ public class KFreaquentQueries {
            }
            
            if (minHeap.size() < k) {
-               minHeap.insert(frequencies.);
+               //minHeap.insert(frequencies.);
            }
        }
        return null;

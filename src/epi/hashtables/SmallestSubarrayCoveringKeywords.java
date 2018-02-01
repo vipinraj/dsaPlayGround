@@ -2,11 +2,13 @@
 package epi.hashtables;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Iterator;
 
 public class SmallestSubarrayCoveringKeywords {
     public static void main(String args[]) {
@@ -15,6 +17,8 @@ public class SmallestSubarrayCoveringKeywords {
         System.out.println(getSmallestSubArray(paragraph,keywords ));
         System.out.println();
         System.out.println(getSmallestSubArray2(paragraph,keywords ));
+        System.out.println();
+        System.out.println(getSmallestSubArray3(paragraph.iterator(), keywords ));
     }
     
     // my method; not O(n)
@@ -95,6 +99,54 @@ public class SmallestSubarrayCoveringKeywords {
         
         return result;
     }
+    
+    public static Subarray getSmallestSubArray3(Iterator<String> paragraphIter, List<String> keywords) {
+      Subarray result = new Subarray(-1, -1);
+      LinkedHashMap<String, Integer> recentKeywordPositions = new LinkedHashMap<>();
+      int keywordsCovered = 0;
+      int i = 0;
+      
+      for (String k: keywords) {
+        recentKeywordPositions.put(k, null);
+      }
+      
+      while(paragraphIter.hasNext()) {
+        String word = paragraphIter.next();
+        
+        if (recentKeywordPositions.containsKey(word)) {
+          Integer lastPosition = recentKeywordPositions.get(word);
+          
+          if (lastPosition == null) { // first encounter
+            keywordsCovered++;
+          }
+          recentKeywordPositions.remove(word);
+          recentKeywordPositions.put(word, i); // insert to the head
+        }
+        
+        if (keywordsCovered == keywords.size()) {
+          Integer lowestKeywordPosition = getLowestIdx(recentKeywordPositions);
+          
+          if ((result.start == -1 && result.end == -1) || result.end - result.start > i - lowestKeywordPosition) {
+            result.start = lowestKeywordPosition;
+            result.end = i;
+          }
+        }
+        i++;
+      }
+      
+      return result;
+    }
+    
+    public static Integer getLowestIdx(LinkedHashMap<String, Integer> map) {
+      Integer idx = null;
+      
+      for (Map.Entry<String, Integer> e: map.entrySet()) {
+        idx = e.getValue();
+        break;
+      }
+      return idx;
+    }
+    
     
     static class Subarray {
         int start;
