@@ -1,3 +1,4 @@
+// 13.7, variants
 package epi.hashtables;
 import java.util.Map;
 import java.util.HashMap;
