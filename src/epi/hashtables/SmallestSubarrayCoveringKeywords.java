@@ -19,6 +19,8 @@ public class SmallestSubarrayCoveringKeywords {
         System.out.println(getSmallestSubArray2(paragraph,keywords ));
         System.out.println();
         System.out.println(getSmallestSubArray3(paragraph.iterator(), keywords ));
+        System.out.println();
+        System.out.println(shortestSubArrayWithDistinctElements(paragraph));
     }
     
     // my method; not O(n)
@@ -146,6 +148,18 @@ public class SmallestSubarrayCoveringKeywords {
       }
       return idx;
     }
+    
+    //
+    public static Subarray shortestSubArrayWithDistinctElements(List<String> A) {
+        Set<String> distinctWords = new HashSet<>();
+        
+        for (String s: A) {
+            distinctWords.add(s);
+        }
+        
+        return getSmallestSubArray2(A, new ArrayList<String>(distinctWords));
+    }
+    
     
     
     static class Subarray {
