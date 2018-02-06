@@ -1,3 +1,4 @@
+// 13.9
 package epi.hashtables;
 import java.util.List;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ public class LongestSubarrayWithDistinctElements {
         "w", "e", "n", "w", "e"));
         System.out.println(getLongestMyMethod(paragraph));
         System.out.println(getLongestMethod2(paragraph));
+        System.out.println(getLongestMyMethodImproved(paragraph));
     }
     
     // O(n) returns the Subarray start and position - not required in the question
@@ -81,6 +83,32 @@ public class LongestSubarrayWithDistinctElements {
             }
         }
         result = Math.max(result, paragraph.size() - distinctSubarrStartIdx);
+        return result;
+    }
+    
+    public static Subarray getLongestMyMethodImproved(List<String> paragraph) {
+        Map<String, Integer> latestOccurance = new HashMap<>();
+        int distinctSubarrStartIdx = 0;
+
+        Subarray result = new Subarray(-1, -1);
+        for (int i = 0; i < paragraph.size(); i++) {
+            Integer dupIdx = latestOccurance.put(paragraph.get(i), i);
+            if (dupIdx != null) {
+                if (dupIdx >= distinctSubarrStartIdx) {
+                  if (result.start == -1 && result.end == -1 || result.end - result.start < i - distinctSubarrStartIdx) {
+                    result.start = distinctSubarrStartIdx;
+                    result.end = i - 1;
+                  }
+                  distinctSubarrStartIdx = dupIdx + 1;
+                }
+            }
+        }
+        
+        if (result.end - result.start < paragraph.size() - distinctSubarrStartIdx) {
+          result.start = distinctSubarrStartIdx;
+          result.end = paragraph.size() - 1;
+        }
+     
         return result;
     }
 }
