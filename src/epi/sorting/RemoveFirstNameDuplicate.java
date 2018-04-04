@@ -1,4 +1,4 @@
-package sorting;
+package epi.sorting;
 import java.util.List;
 import java.util.ArrayList;
 import java.lang.Comparable;

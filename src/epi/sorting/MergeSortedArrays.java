@@ -1,4 +1,4 @@
-package sorting;
+package epi.sorting;
 import java.util.Arrays;
 // 14.2
 public class MergeSortedArrays {
