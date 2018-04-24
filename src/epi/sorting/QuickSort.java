@@ -47,8 +47,8 @@ public class QuickSort {
  public static void quickSortRandomized(int a[], int i, int j) {
     if (i < j) {
       int m = randomPartition(a, i, j);
-      quickSort(a, i, m-1);
-      quickSort(a, m+1, j);
+      quickSortRandomized(a, i, m-1);
+      quickSortRandomized(a, m+1, j);
     }
   }
  
