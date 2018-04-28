@@ -28,6 +28,8 @@ class KLargestElements {
 		List<Integer> result = findKLargest(root, 6);
 
 		System.out.println(result);
+		result = findKLargestRecursive(root, 6);
+		System.out.println(result);
 	}
 
 	public static List<Integer> findKLargest(BinaryTreeNode<Integer> tree, int k) {
@@ -48,6 +50,22 @@ class KLargestElements {
 			}
 		} 
 		return result;
+	}
+
+	public static List<Integer> findKLargestRecursive(BinaryTreeNode<Integer> tree, int k) {
+		List<Integer> output = new ArrayList<Integer>();
+		findKLargestHelper(tree, output, k);
+		return output;
+	}
+
+	public static void findKLargestHelper(BinaryTreeNode<Integer> tree, List<Integer> globalList, int k) {
+		if (tree != null && globalList.size() < k) {
+			findKLargestHelper(tree.right, globalList, k);
+			if (globalList.size() < k) {
+				globalList.add(tree.data);
+				findKLargestHelper(tree.left, globalList, k);
+			}
+		}
 	}
 }
 
