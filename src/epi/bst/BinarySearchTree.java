@@ -72,7 +72,12 @@ public class BinarySearchTree {
             return false;
         }
         
+
         if (node.left == null && node.right == null) {
+            if (parent == null) { // if root is the node to be deleted
+	        	root = null;
+	        	return true;
+	        }
             if (parent.left == node) {
                 parent.left = null;
             } else {
@@ -89,19 +94,26 @@ public class BinarySearchTree {
                 iter = iter.left;
             }
             successor = iter;
-            
-            // delete successor
-            if () {
-                
-            }
+
+            node.data = successor.data;
+
+            delete(successor.data);
             
         } else if (node.left == null) {
+            if (parent == null) { // if root is the node to be deleted
+	        	root = node.right;
+	        	return true;
+	        }
             if (parent.left == node) {
                 parent.left = node.right;
             } else {
                 parent.right = node.right;
             }
         } else if (node.right == null) {
+            if (parent == null) { // if root is the node to be deleted
+	        	root = node.left;
+	        	return true;
+	        }
             if (parent.left == node) {
                 parent.left = node.left;
             } else {
