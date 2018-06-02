@@ -1,8 +1,9 @@
+// 6.10
 package epi.arrays;
 
 public class NextPermutation {
 	public static void main(String args[]) {
-		int[] input = {6, 2, 1, 5, 4, 3, 0};
+		Integer[] input = {6, 2, 1, 5, 4, 3, 0};
 
 		getNext(input);
 
@@ -12,7 +13,7 @@ public class NextPermutation {
 
 		System.out.println();
 
-		int[] input2 = {6, 2, 3, 0, 1, 4, 5};
+		Integer[] input2 = {6, 2, 3, 0, 1, 4, 5};
 
 		getNext(input2);
 
@@ -22,17 +23,17 @@ public class NextPermutation {
 
 		System.out.println();
 
-		int[] input3 = {6, 2, 1};
+		Integer[] input3 = {6, 2, 1};
 
-		int[] result = getNext(input3);
+		Integer[] result = getNext(input3);
 
 		for (int i = 0; i < result.length; i++) {
 			System.out.print(result[i] + ", ");
 		}
 
 	}
-
-	public static int[] getNext(int[] permutation) {
+	// O(n)
+	public static Integer[] getNext(Integer[] permutation) {
 
 		// find largest increasing subsequence starting from right most element.
 		int size = permutation.length - 1;
@@ -46,7 +47,7 @@ public class NextPermutation {
 
 		// this is the maximum permutation
 		if (i == -1) {
-			return new int[]{};
+			return new Integer[]{};
 		}
 
 		// find the smallest element in increasing sequence which is larger than permutation[i];
@@ -69,7 +70,7 @@ public class NextPermutation {
 
 	}
 
-	public static void swap(int arr[], int i, int j) {
+	public static void swap(Integer arr[], int i, int j) {
 		int t = arr[i];
 		arr[i] = arr[j];
 		arr[j] = t;
