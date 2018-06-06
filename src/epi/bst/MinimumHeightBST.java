@@ -1,7 +1,6 @@
 // 15.9
 package epi.bst;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MinimumHeightBST {
@@ -9,8 +8,6 @@ public class MinimumHeightBST {
 		List<Integer> sortedArray = Arrays.asList(2,3,5,7,11,13,17,19,23);
 
 		BinaryTreeNode<Integer> tree = build(sortedArray);
-
-		BinaryTreeNode<Integer> iter = tree;		
 		inorderTraversal(tree);
 
 	}
