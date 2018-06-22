@@ -1,3 +1,9 @@
+// 16.9
+package epi.recursion;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Arrays;
+
 public class SudokuSolver {
 	public static void main(String[] args) {
 		int[][] inputSudoku = 	{
@@ -11,11 +17,18 @@ public class SudokuSolver {
 									{ 0, 0, 0, 4, 1, 9, 0, 0, 5 },
 									{ 0, 0, 0, 0, 8, 0, 0, 7, 9 }
 								};
+								
+	   int[][] result = solveSudoku(inputSudoku);
+	   print(result);
 	}
 
 	public static int[][] solveSudoku(int[][] input) {
 		int[][] solution = input.clone();
-		solveSudokuHelper(input, solution, new Cell(0, 0));
+		
+		if (solveSudokuHelper(input, solution, new Cell(0, 0))) {
+		    return solution;
+		}
+		return null;
 	}
 
 	public static boolean solveSudokuHelper(int[][] input, int[][] solution, Cell c) {
@@ -25,12 +38,24 @@ public class SudokuSolver {
 		if (nextEmptyCell != null) {
 			int i = nextEmptyCell.i;
 			int j = nextEmptyCell.j;
+			
+			Integer[] allowedValues = getAllowedValues(solution, i, j);
+			
+			for (int l = 0; l < allowedValues.length; l++) {
+			    solution[i][j] = allowedValues[l];
+			    if (solveSudokuHelper(input, solution, nextEmptyCell)) {
+			        return true;
+			    } else {
+			        solution[i][j] = 0;
+			    }
+			}
+			return false;
 		}
-
+        return true;
 	}
 
-	public static int[] getAllowedValues(int[][] solution, int i, int j) {
-		Set<Integer> values = new HashSet(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
+	public static Integer[] getAllowedValues(int[][] solution, int i, int j) {
+		Set<Integer> values = new HashSet<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
 
 		// row
 		for (int l = 0; l < 9; l++) {
@@ -44,8 +69,20 @@ public class SudokuSolver {
 
 		// 3x3 array
 		// 0, 1, 2, 3, 4, 5, 6, 7, 8
-		int iStart = (((i + 1) / 3) - 1) * 3;
-
+		int iStart = (i / 3) * 3;
+		int jStart = (j / 3) * 3;
+		
+		for (int l = iStart; l < iStart + 3; l++ ) {
+		    for (int m = jStart; m < jStart + 3; m++) {
+		        values.remove(solution[l][m]);
+		    }
+		}
+		
+		Integer[] result = new Integer[values.size()];
+		
+		values.toArray(result);
+        
+        return result;
 	}
 
 	// including c
@@ -70,8 +107,17 @@ public class SudokuSolver {
 			}
 
 		}
-		return null;
 	}
+
+    public static void print(int[][] arr) {
+        System.out.println();
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[0].length; j++) {
+                System.out.print( arr[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
 
 	public static class Cell {
 		int i;
