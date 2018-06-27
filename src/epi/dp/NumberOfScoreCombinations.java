@@ -1,7 +1,5 @@
 package epi.dp;
 
-import java.util.Arrays;
-
 public class NumberOfScoreCombinations {
 	static int count = 0;
 	public static void main(String[] args) {
@@ -10,6 +8,7 @@ public class NumberOfScoreCombinations {
 		Integer[][] dp = new Integer[finalScore + 1][scores.length];
 		System.out.println(countCombinations(scores, finalScore, 0, dp));
 		System.out.println(countCombinationsDp1(scores, finalScore));
+		System.out.println(countCombinationsDp2(scores, finalScore));
 	}
 	
 	// recursive
@@ -61,6 +60,23 @@ public class NumberOfScoreCombinations {
 		}
 		print(dp);
 		return dp[scores.length - 1][targetScore];
+	}
+	
+	// epi - O(n*s)
+	public static int countCombinationsDp2(int[] scores, int targetScore) {
+	    int[][] numCombinationsForScore = new int[scores.length][targetScore + 1];
+	    
+	    for (int i = 0; i < scores.length; i++) {
+	        numCombinationsForScore[i][0] = 1;
+	        
+	        for (int j = 1; j <= targetScore; ++j) {
+	            int withoutThisPlay = i - 1 >= 0 ? numCombinationsForScore[i - 1][j] : 0;
+	            int withThisPlay = j >= scores[i] ? numCombinationsForScore[i][j - scores[i]] : 0;
+	            numCombinationsForScore[i][j] = withoutThisPlay + withThisPlay;
+	        }
+	    }
+	    
+	    return numCombinationsForScore[scores.length - 1][targetScore];
 	}
 
 	public static void print(int[][] arr) {
