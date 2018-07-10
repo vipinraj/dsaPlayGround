@@ -18,21 +18,31 @@ public class MinimumWeightPathInTriangle {
         int[] dp = new int[triangle.length];
                
         dp[0] = triangle[0][0];
-         print(dp);
+        //print(dp);
         for (int i = 1; i < triangle.length; i++) {
+            int[] dpTemp = new int[triangle.length];
             for (int j = 0; j < i + 1; j++) {
-                int n1 = dp[j];
+                int n1 = Integer.MAX_VALUE;
                 int n2 = Integer.MAX_VALUE;
                 
-                if (j + 1  < i) {
-                    n2 = dp[j + 1];
-                    dp[j] = Math.min(triangle[i][j] + n1, triangle[i][j] + n2);
-                    continue;
+                if (j != i) {
+                    n1 = dp[j];
                 }
-                
-                dp[j] = triangle[i][j] + n1;
+
+                if (j - 1 >= 0) {
+                    n2 = dp[j - 1];
+                }
+
+                if (n1 != Integer.MAX_VALUE && n2 != Integer.MAX_VALUE) {
+                    dpTemp[j] = Math.min(triangle[i][j] + n1, triangle[i][j] + n2);
+                } else if (n1 != Integer.MAX_VALUE) {
+                    dpTemp[j] = triangle[i][j] + n1;
+                } else if (n2 != Integer.MAX_VALUE) {
+                    dpTemp[j] = triangle[i][j] + n2;
+                }
             }
-            print(dp);
+            dp = dpTemp;
+            //print(dp);
         }
         
         int min = Integer.MAX_VALUE;
