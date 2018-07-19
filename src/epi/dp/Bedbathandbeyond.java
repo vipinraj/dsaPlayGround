@@ -8,7 +8,7 @@ public class Bedbathandbeyond {
         Set<String> dictionary = new HashSet<>(Arrays.asList(
             "i", "like", "sam", "sung", "samsung", "mobile", "ice", 
             "cream", "icecream", "man", "go", "mango"));
-        String input = "samsungandmangok";
+        String input = "bedbathandbeyond";
         System.out.println(checkIfDecomposable(dictionary, input, 0));
     }
     
