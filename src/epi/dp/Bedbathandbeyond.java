@@ -15,6 +15,7 @@ public class Bedbathandbeyond {
         String input2 = "bedbathandbeyond";
         //System.out.println(checkIfDecomposable(dictionary, input, 0));
         System.out.println(checkIfDecomposable(dictionary2, input2, 0));
+        System.out.println(checkIfDecomposable(dictionary, input, 0));
     }
     
     

@@ -58,6 +58,7 @@ class Consumer extends Thread {
 	@Override
 	public void run() {
 		while(true) {
+			System.out.println("in while..");
 			synchronized(sharedQ) {
 				while(sharedQ.size() == 0) {
 					try {
