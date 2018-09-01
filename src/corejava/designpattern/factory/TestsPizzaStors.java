@@ -12,6 +12,6 @@ public class TestsPizzaStors {
         System.out.println(nyCheese.getName());
         System.out.println(nyPep.getName());
         System.out.println(chCheese.getName());
-        System.out.println(chpep.getName());
+        System.out.println(chepo.getName());
     }
 }
