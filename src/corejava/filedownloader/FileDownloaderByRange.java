@@ -102,19 +102,20 @@ public class FileDownloaderByRange {
 			int count = 1;
 			int percentage = 0;
 			int prevPercentage = 0;
+			System.out.println();
 			while ((singleChar = inputStream.read()) != -1) {
 				fos.write(singleChar);
 				percentage = (int)(((double)count / (end - start)) * 100);
 				
 				if (percentage != prevPercentage) {
-					System.out.println("Part " + seqNo + ": Progress: " + percentage);
+					System.out.print("\rPart " + seqNo + ": Progress: " + percentage);
 					prevPercentage = percentage;
 				}
 				count++;
 			}
 			fos.flush();
 			fos.close();
-			System.out.println("Part " + seqNo + " downloded (" + (double)count/1024/1024 + "MB).");
+			System.out.print("Part " + seqNo + " downloded (" + (double)count/1024/1024 + "MB).\n");
 			
 		} catch (Exception e) {
 			System.out.println("Exection");

@@ -28,9 +28,9 @@ public class MultipartDownloader {
 		long start = 0;
 		long end;
 		long blockSize;
-		List<Integer> semaphore = new LinkedList<>();
 		String urlStr = args[0];
 		URL url = null;
+		Semaphore semaphore = new Semaphore(5);
 		
 		try {
 			url = new URL(urlStr);
@@ -52,10 +52,6 @@ public class MultipartDownloader {
 				BlockingQueue<String> filesPaths = new PriorityBlockingQueue<>(10);
 				size = urlConnection.getContentLengthLong();
 				blockSize = size / PARTS;
-				
-				for (int i = 0; i < MAX_THREADS; i++) {
-					semaphore.add(1);
-				}
 				
 				for (int i = 0; i < PARTS; i++) {
 					end = start + blockSize;
@@ -112,11 +108,11 @@ class PartDownloader extends Thread {
 	String url;
 	long start, end;
 	int seqNo;
-	List<Integer> semaphore;
+	Semaphore semaphore;
 	int maxThreads;
 	BlockingQueue<String> filesPaths;
 	
-	PartDownloader(String url, long start, long end, int seqNo, List<Integer> semaphore, int maxThreads, BlockingQueue<String> filesPaths) {
+	PartDownloader(String url, long start, long end, int seqNo, Semaphore semaphore, int maxThreads, BlockingQueue<String> filesPaths) {
 		this.url = url;
 		this.start = start;
 		this.end = end;
@@ -128,17 +124,7 @@ class PartDownloader extends Thread {
 	
 	@Override
 	public void run() {
-		synchronized(semaphore) {
-			while (semaphore.size() == 0) {
-				try {
-					semaphore.wait();
-				} catch(InterruptedException e) {
-					e.printStackTrace();
-				}
-
-			}
-			semaphore.remove(0);
-		}
+		semaphore.acquire();
 		
 		FileDownloaderByRange fdr = new FileDownloaderByRange();
 		String partFileName = fdr.downloadRange(url, start, end, seqNo);
@@ -149,11 +135,45 @@ class PartDownloader extends Thread {
 			e.printStackTrace();
 		}
 
-		synchronized(semaphore) {
-			if (semaphore.size() < maxThreads) {
-				semaphore.add(0);
+		semaphore.release();
+	}
+}
+
+class Semaphore {
+	int maxCount;
+	int taken = 0;
+
+	private Semaphore() {
+
+	}
+
+	public Semaphore(int maxCount) {
+		this.maxCount = maxCount;
+	}
+
+	public synchronized void acquire() {
+		try {
+			while (taken == maxCount) {
+				wait();
 			}
-			semaphore.notify();
+			
+			taken++;
+			notifyAll();
+		} catch(InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public synchronized void release() {
+		try {
+			while (taken == 0) {
+				wait();
+			}
+			
+			taken--;
+			notifyAll();
+		} catch(InterruptedException e) {
+			e.printStackTrace();
 		}
 	}
 }
