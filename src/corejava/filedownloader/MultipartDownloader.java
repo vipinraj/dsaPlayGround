@@ -5,11 +5,9 @@ import java.net.Proxy;
 import java.net.InetSocketAddress;
 import javax.net.ssl.HttpsURLConnection;
 import java.util.List;
-import java.util.LinkedList;
 import java.util.ArrayList;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.PriorityBlockingQueue;
-import java.util.Collections;
 import java.io.FileOutputStream;
 import java.io.FileInputStream;
 import java.io.File;
@@ -98,8 +96,6 @@ public class MultipartDownloader {
 			System.out.println("Exeption");
 			e.printStackTrace();
 		}
-		
-		
 	}
 }
 
