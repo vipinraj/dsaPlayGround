@@ -61,6 +61,7 @@ public class MutipartDownloaderUisngThreadPool {
 				}
 				
 				executor.shutdown();
+				executor.awaitTermination(10, TimeUnit.MINUTES);
 				
 				FileOutputStream fos = new FileOutputStream(fileName);
 
