@@ -1,4 +1,4 @@
-package week3;/* *****************************************************************************
+/* *****************************************************************************
  *  Name:    Alan Turing
  *  NetID:   aturing
  *  Precept: P00
@@ -9,16 +9,11 @@ package week3;/* ***************************************************************
  *
  **************************************************************************** */
 
+package week3;
+
 import java.util.Arrays;
 
-public class Merge {
-    public static void main(String[] args) {
-        String[] items = "Z, Y, Z, X, W, W, V, U, T, S, R, Q, P, O, N, M, L, A, K, J, I, H, G, F, E, D, C, B, A, A".split(", ");
-        Merge.sort(items);
-
-        System.out.println(Arrays.toString(items));
-    }
-
+public class MergeBottomUp {
     private static void merge(Comparable[] items, Comparable[] copy, int i, int j, int mid) {
         for(int m = i; m <= j; m++) {
             copy[m] = items[m];
@@ -46,23 +41,24 @@ public class Merge {
         return a.compareTo(b) < 0;
     }
 
-    private static void sort(Comparable[] items, Comparable[] copy, int i, int j) {
-        if (i >= j) {
-            return;
+    public static void sort(Comparable[] items) {
+
+        Comparable[] copy = new Comparable[items.length];
+
+        for (int j = 2; j < items.length; j = j + j ) {
+            for (int i = 0; i < items.length; i = i + j) {
+                int k = Math.min(i + j, items.length - 1);
+                int mid = i + (k - i) / 2;
+                merge(items, copy, i, k, mid);
+            }
         }
 
-        int mid = i + (j - i)/2;
-        sort(items, copy, i, mid);
-        sort(items, copy, mid + 1, j);
-        if (less(items[mid], items[mid + 1])) {
-            return;
-        }
-
-        merge(items, copy, i, j, mid);
     }
 
-    public static void sort(Comparable[] items) {
-        Comparable[] copy = new Comparable[items.length];
-        sort(items, copy, 0, items.length - 1);
+    public static void main(String[] args) {
+        String[] items = "Z, Y, Z, X, W, W, V, U, T, S, R, Q, P, O, N, M, L, A, K, J, I, H, G, F, E, D, C, B, A, A".split(", ");
+        MergeBottomUp.sort(items);
+
+        System.out.println(Arrays.toString(items));
     }
 }
