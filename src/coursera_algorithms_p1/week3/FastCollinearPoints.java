@@ -20,19 +20,26 @@ import java.util.Comparator;
 public class FastCollinearPoints {
     private Point[] points;
     private int numberOfSegments;
+    private LineSegment[] lineSegments;
 
     public FastCollinearPoints(Point[] points) {
         if (points == null) {
             throw new IllegalArgumentException();
         }
 
-        Arrays.sort(points);
-
-        if (hasDuplicate(points)) {
+        if (hasNull(points)) {
             throw new IllegalArgumentException();
         }
 
-        this.points = points;
+        this.points = points.clone();
+
+        Arrays.sort(this.points);
+
+        if (hasDuplicate(this.points)) {
+            throw new IllegalArgumentException();
+        }
+
+        findSegments();
     }
 
     public int numberOfSegments() {
@@ -40,6 +47,10 @@ public class FastCollinearPoints {
     }
 
     public LineSegment[] segments() {
+        return lineSegments.clone();
+    }
+
+    private void findSegments() {
         ArrayList<LineSegment> segments = new ArrayList<>();
         Point[] tempArray = new Point[points.length - 1];
 
@@ -72,7 +83,7 @@ public class FastCollinearPoints {
 
         LineSegment[] lineSegments = new LineSegment[segments.size()];
         numberOfSegments = segments.size();
-        return segments.toArray(lineSegments);
+        this.lineSegments = segments.toArray(lineSegments);
     }
 
     private void copyToTempArray(Point[] tempArray, int excludeIdx) {
@@ -87,14 +98,20 @@ public class FastCollinearPoints {
     }
 
     private boolean hasDuplicate(Point[] points) {
-        Point prev = points[0];
-
         for (int i = 1; i < points.length; i++) {
-            if (prev.compareTo(points[i]) == 0) {
+            if (points[i - 1].compareTo(points[i]) == 0) {
                 return true;
             }
+        }
 
-            prev = points[i];
+        return false;
+    }
+
+    private boolean hasNull(Point[] points) {
+        for(int i = 0; i < points.length; i++) {
+            if(points[i] == null) {
+                return true;
+            }
         }
 
         return false;
@@ -108,6 +125,7 @@ public class FastCollinearPoints {
                 new Point(2, 3), new Point(3, 1),
                 new Point(2, 0), new Point(3, 0),
                 new Point(5, 0), new Point(1, 0),
+                new Point(4, 4)
                 };
 
         FastCollinearPoints fcp = new FastCollinearPoints(points);

@@ -15,29 +15,39 @@ import java.util.Arrays;
 
 public class BruteCollinearPoints {
     private final Point[] points;
-    private int numOfSegments;
+    private LineSegment[] lineSegments;
 
     public BruteCollinearPoints(Point[] points) {
         if (points == null) {
             throw new IllegalArgumentException();
         }
 
-        Arrays.sort(points);
+        if (hasNull(points)) {
+            throw new IllegalArgumentException();
+        }
 
-        if (hasDuplicate(points)) {
+        this.points = points.clone();
+
+        Arrays.sort(this.points);
+
+        if (hasDuplicate(this.points)) {
             throw new IllegalArgumentException();
         }
 
 
-        this.points = points;
+        findSegments();
     }
 
 
     public int numberOfSegments() {
-        return numOfSegments;
+        return this.lineSegments.length;
     }
 
     public LineSegment[] segments() {
+        return this.lineSegments.clone();
+    }
+
+    private void findSegments() {
         ArrayList<LineSegment> segments = new ArrayList<LineSegment>();
         for(int i = 0; i < points.length; i++) {
             for(int j = i + 1; j < points.length; j++) {
@@ -47,7 +57,6 @@ public class BruteCollinearPoints {
                     for (int l = k + 1; l < points.length; l++) {
                         double slopeKL = points[k].slopeTo(points[l]);
                         if (slopeIJ == slopeJK && slopeJK == slopeKL) {
-                            numOfSegments++;
                             segments.add(new LineSegment(points[i], points[l]));
                         }
                     }
@@ -56,19 +65,24 @@ public class BruteCollinearPoints {
         }
 
         LineSegment[] lineSegments = new LineSegment[segments.size()];
-
-        return segments.toArray(lineSegments);
+        this.lineSegments = segments.toArray(lineSegments);
     }
 
     private boolean hasDuplicate(Point[] points) {
-        Point prev = points[0];
-
         for (int i = 1; i < points.length; i++) {
-            if (prev.compareTo(points[i]) == 0) {
+            if (points[i - 1].compareTo(points[i]) == 0) {
                 return true;
             }
+        }
 
-            prev = points[i];
+        return false;
+    }
+
+    private boolean hasNull(Point[] points) {
+        for(int i = 0; i < points.length; i++) {
+            if(points[i] == null) {
+                return true;
+            }
         }
 
         return false;
