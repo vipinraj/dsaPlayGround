@@ -6,6 +6,28 @@ import java.util.Arrays;
 
 public class Quick {
 
+    // get kth smallest element
+    public static Comparable select(Comparable[] a, int k) {
+        k--;
+        int hi = a.length - 1;
+        int lo = 0;
+
+        while (hi > lo) {
+            int i = partition(a, lo, hi);
+
+            if (i == k) {
+                return a[i];
+            } else if (i > k) {
+                hi = i - 1;
+            } else {
+                lo = i + 1;
+            }
+        }
+
+        return a[k];
+    }
+
+
     private static void sort(Comparable[] a, int start, int end) {
         if (start >= end) {
             return;
@@ -70,5 +92,15 @@ public class Quick {
         Quick.sort(items);
 
         System.out.println(Arrays.toString(items));
+
+        Integer[] nums = { 10, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+
+        System.out.println(select(nums, 11));
     }
 }
+
+// 3, 2, 1
+// 2, 1, 3
+// hi = 1
+// lo = 1
+// 1, 2, 3
