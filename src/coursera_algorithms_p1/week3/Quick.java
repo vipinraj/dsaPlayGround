@@ -44,7 +44,7 @@ public class Quick {
         int hi = end;
 
         while (lo <= hi) {
-            while (less(a[lo], a[start])) {
+            while (lessOrEqual(a[lo], a[start])) {
                 lo++;
 
                 if (lo > end) {
@@ -52,7 +52,7 @@ public class Quick {
                 }
             }
 
-            while (less(a[start], a[hi])) {
+            while (lessOrEqual(a[start], a[hi])) {
                 hi--;
 
                 if (hi < start + 1) {
@@ -78,7 +78,7 @@ public class Quick {
         a[hi] = l;
     }
 
-    private static boolean less(Comparable a, Comparable b) {
+    private static boolean lessOrEqual(Comparable a, Comparable b) {
         // Note: used <= here
         return a.compareTo(b) <= 0;
     }
