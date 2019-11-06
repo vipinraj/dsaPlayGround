@@ -6,6 +6,42 @@ package week3;
  */
 
 public class KthLargestInTwoSortedArrays {
+
+    // O(log(k))
+    public static Comparable findNthMethod2(Comparable[] a, Comparable[] b, int k,
+                                            int aStart, int aEnd, int bStart, int bEnd) {
+        if (aStart == aEnd) {
+            return b[bStart + k - 1];
+        }
+
+        if (bStart == bEnd) {
+            return a[aStart + k - 1];
+        }
+
+        int aSizeToConsider = Math.min(k, aEnd - aStart);
+        int bSizeToConsider = Math.min(k, bEnd - bStart);
+
+        int aMid = aStart + (aSizeToConsider / 2);
+        int bMid = bStart + (bSizeToConsider / 2);
+
+        if (k >= aMid - aStart + bMid - bStart + 2) {
+            if (less(a[aMid], b[bMid])) {
+                return findNthMethod2(a, b, k - (aMid - aStart + 1),
+                               aMid + 1, aEnd, bStart, bEnd);
+            } else {
+                return findNthMethod2(a, b, k - (bMid - bStart + 1),
+                               aStart, aEnd, bMid + 1, bEnd);
+            }
+        } else {
+            if (less(a[aMid], b[bMid])) {
+                return findNthMethod2(a, b, k, aStart, aEnd, bStart, bMid);
+            } else {
+                return findNthMethod2(a, b, k, aStart, aMid, bStart, bEnd);
+            }
+        }
+    }
+
+    // O(log(n) + O(log(m)))
     public static Comparable findNth(Comparable[] a, Comparable[] b, int k,
                                      int aStart, int aEnd, int bStart, int bEnd) {
         if (aStart == aEnd) {
@@ -48,6 +84,13 @@ public class KthLargestInTwoSortedArrays {
         for (int i = 1; i <= a1.length + a2.length; i++) {
             System.out.print("k = " + i + ": ");
             System.out.println(findNth(a1, a2, i, 0, a1.length, 0, a2.length));
+        }
+
+        System.out.println("-----------------");
+
+        for (int i = 1; i <= a1.length + a2.length; i++) {
+            System.out.print("k = " + i + ": ");
+            System.out.println(findNthMethod2(a1, a2, i, 0, a1.length, 0, a2.length));
         }
     }
 }
