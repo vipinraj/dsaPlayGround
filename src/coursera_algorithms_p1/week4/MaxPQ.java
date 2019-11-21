@@ -1,8 +1,14 @@
 package week4;
 
+import java.util.Arrays;
+
 public class MaxPQ<Key extends Comparable<Key>> {
     private int N = 1;
     private Key[] pq;
+
+    public boolean isEmpty() {
+        return N == 1;
+    }
 
     public MaxPQ(int capacity) {
         pq = (Key[]) new Comparable[capacity + 1];
@@ -10,22 +16,29 @@ public class MaxPQ<Key extends Comparable<Key>> {
 
     public Key delMax() {
         Key max = pq[1];
-        pq[1] = pq[N - 1];
+        pq[1] = pq[--N];
         sink(1);
         return max;
     }
 
     private void sink(int k) {
-        int largestChildIdx;
-        if (less(pq[k * 2], pq[k * 2 + 1])) {
-            largestChildIdx = k * 2 + 1;
-        } else {
-            largestChildIdx = k * 2;
+        int largestIdx = k;
+
+        if (k * 2 + 1  < N) {
+            if (less(pq[largestIdx], pq[k * 2 + 1])) {
+                largestIdx = k * 2 + 1;
+            }
         }
 
-        if (less(pq[k], pq[largestChildIdx])) {
-            exch(k, largestChildIdx);
-            sink(largestChildIdx);
+        if (k * 2 < N) {
+            if (less(pq[largestIdx], pq[k * 2])) {
+                largestIdx = k * 2;
+            }
+        }
+
+        if (k != largestIdx) {
+            exch(k, largestIdx);
+            sink(largestIdx);
         }
     }
 
@@ -35,7 +48,7 @@ public class MaxPQ<Key extends Comparable<Key>> {
     }
 
     private void swim(int k) {
-        int parent_idx = k / 2;
+        int parent_idx = Math.max(1, k / 2);
         while(parent_idx > 0 && less(pq[parent_idx], pq[k])) {
           exch(k, parent_idx);
           k = parent_idx;
@@ -54,6 +67,18 @@ public class MaxPQ<Key extends Comparable<Key>> {
     }
 
     public static void main(String[] args) {
+        MaxPQ<Integer> maxPQ = new MaxPQ<>(10);
+        maxPQ.insert(3);
+        maxPQ.insert(1);
+        maxPQ.insert(10);
+        maxPQ.insert(78);
+        maxPQ.insert(5);
+        maxPQ.insert(3);
+        maxPQ.insert(9);
 
+
+        while(!maxPQ.isEmpty()) {
+            System.out.println(maxPQ.delMax());
+        }
     }
 }
