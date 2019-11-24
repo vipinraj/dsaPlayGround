@@ -18,6 +18,7 @@ public class MaxPQ<Key extends Comparable<Key>> {
         Key max = pq[1];
         pq[1] = pq[--N];
         sink(1);
+        pq[N] = null;
         return max;
     }
 
