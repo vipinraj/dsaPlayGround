@@ -93,7 +93,7 @@ public class Board {
             }
         }
 
-        return true;    
+        return true;
     }
 
     public boolean equals(Object y) {
