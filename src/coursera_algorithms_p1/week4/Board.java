@@ -19,7 +19,7 @@ public class Board {
         StringBuilder stringBuilder = new StringBuilder(Integer.toString(this.tiles.length));
         stringBuilder.append('\n');
 
-        for(int[] row : tiles) {
+        for (int[] row : tiles) {
             String rowAsStr = Arrays.stream(row)
                                     .mapToObj(String::valueOf)
                                     .collect(Collectors.joining("\t"));
@@ -111,18 +111,18 @@ public class Board {
         return false;
     }
 
-    public int hashCode() {
-        assert false: "Hash code not designed";
-        return 43;
-    }
+    // public int hashCode() {
+    //     assert false : "Hash code not designed";
+    //     return 43;
+    // }
 
-    public Iterable<Board> neighbours() {
+    public Iterable<Board> neighbors() {
         List<Board> neighbours = new ArrayList<Board>();
-        int[][] indexDeltas = { {-1, 0}, {0, 1}, {1, 0}, {0, -1} };
+        int[][] indexDeltas = { { -1, 0 }, { 0, 1 }, { 1, 0 }, { 0, -1 } };
 
         Integer[] indexOfZero = getIndexOfZero();
 
-        for (int[] delta: indexDeltas) {
+        for (int[] delta : indexDeltas) {
             int potentialI = delta[0] + indexOfZero[0];
             int potentialJ = delta[1] + indexOfZero[1];
 
@@ -138,14 +138,14 @@ public class Board {
         return neighbours;
     }
 
-    int[][] deepCopy(int[][] array) {
+    private int[][] deepCopy(int[][] array) {
         return java.util.Arrays.stream(array).map(el -> el.clone()).toArray($ -> array.clone());
     }
 
-    private void exchange(int[][] tilesCopy, int i1, int j1, int i2, int j2) {
-        int temp = tilesCopy[i2][j2];
-        tilesCopy[i2][j2] = tilesCopy[i1][j1];
-        tilesCopy[i1][j1] = temp;
+    private void exchange(int[][] tiles, int i1, int j1, int i2, int j2) {
+        int temp = tiles[i2][j2];
+        tiles[i2][j2] = tiles[i1][j1];
+        tiles[i1][j1] = temp;
     }
 
     private Integer[] getIndexOfZero() {
@@ -153,7 +153,7 @@ public class Board {
             for (int i = 0; i < this.tiles.length; i++) {
                 for (int j = 0; j < this.tiles[i].length; j++) {
                     if (this.tiles[i][j] == 0) {
-                        this.indexOfZero = new Integer[] {i, j};
+                        this.indexOfZero = new Integer[] { i, j };
                         break;
                     }
                 }
@@ -166,21 +166,42 @@ public class Board {
         return this.indexOfZero;
     }
 
-    //
-    // public Board twin() {
-    //
-    // }
+    public Board twin() {
+        Integer[] firstTile = null;
+        Integer[] secondTile = null;
+
+        for (int i = 0; i < this.tiles.length; i++) {
+            for (int j = 0; j < this.tiles[i].length; j++) {
+                if (tiles[i][j] != 0 && firstTile == null) {
+                    firstTile = new Integer[] { i, j };
+                }
+                else if (tiles[i][j] != 0 && secondTile == null) {
+                    secondTile = new Integer[] { i, j };
+                    break;
+                }
+            }
+
+            if (firstTile == null && secondTile == null) {
+                break;
+            }
+        }
+
+        int[][] twinTiles = deepCopy(tiles);
+        exchange(twinTiles, firstTile[0], firstTile[1], secondTile[0], secondTile[1]);
+        return new Board(twinTiles);
+    }
 
     public static void main(String[] args) {
-        Board b1 = new Board(new int[][] { {8, 1, 3}, {4,0,2}, {7,6,5}});
-        Board b2 = new Board(new int[][] { {8, 1, 3}, {4,0,2}, {7,6,5}});
-        Board b3 = new Board(new int[][] { {1, 0, 3}, {4,2,5}, {7,8,6}});
+        Board b1 = new Board(new int[][] { { 8, 1, 3 }, { 4, 0, 2 }, { 7, 6, 5 } });
+        Board b2 = new Board(new int[][] { { 8, 1, 3 }, { 4, 0, 2 }, { 7, 6, 5 } });
+        Board b3 = new Board(new int[][] { { 1, 0, 3 }, { 4, 2, 5 }, { 7, 8, 6 } });
         System.out.println(b1.toString());
         System.out.println(b1.manhattan());
         System.out.println(b1.hamming());
         System.out.println(b1.equals(b1));
         System.out.println(b1.equals(b2));
         System.out.println(b1.equals(b3));
-        b3.neighbours().forEach(item -> System.out.println(item));
+        b3.neighbors().forEach(item -> System.out.println(item));
+        System.out.println(b3.twin());
     }
 }

@@ -1,7 +1,5 @@
 package week4;
 
-import java.util.Arrays;
-
 public class MaxPQ<Key extends Comparable<Key>> {
     private int N = 1;
     private Key[] pq;
