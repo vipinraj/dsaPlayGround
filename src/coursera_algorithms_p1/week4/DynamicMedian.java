@@ -34,6 +34,8 @@ public class DynamicMedian {
     private void balance() {
         if(maxPQ.size() < minPQ.size()) {
             maxPQ.insert(minPQ.delMin());
+        } else if (maxPQ.size() > minPQ.size() + 1) {
+            minPQ.insert(maxPQ.delMax());
         }
     }
 
@@ -84,6 +86,30 @@ public class DynamicMedian {
         dm.insert(10);
         System.out.println(dm.findMedian());
         System.out.println(dm.removeMedian());
+        System.out.println(dm.findMedian());
+        System.out.println("----------");
+        dm = new DynamicMedian();
+        dm.insert(9);
+        dm.insert(8);
+        dm.insert(7);
+        dm.insert(6);
+        dm.insert(5);
+        dm.insert(4);
+        dm.insert(3);
+        dm.insert(2);
+        dm.insert(1);
+        System.out.println(dm.findMedian());
+        dm = new DynamicMedian();
+        dm.insert(1);
+        dm.insert(2);
+        dm.insert(3);
+        dm.insert(4);
+        System.out.println(dm.removeMedian());
+        dm.insert(5);
+        dm.insert(6);
+        dm.insert(7);
+        dm.insert(8);
+        dm.insert(9);
         System.out.println(dm.findMedian());
     }
 }
