@@ -18,9 +18,11 @@ public class BST<Key extends Comparable<Key>, Value> {
         private Key key;
         private Value val;
         private Node left, right;
-        public Node(Key key, Value val) {
+        private int count;
+        public Node(Key key, Value val, int count) {
             this.key = key;
             this.val = val;
+            this.count = count;
         }
     }
     Node root;
@@ -32,8 +34,9 @@ public class BST<Key extends Comparable<Key>, Value> {
 
     public Node put(Node x, Key key, Value value) {
         if (x == null) {
-            return new Node(key, value);
+            return new Node(key, value, 1);
         }
+
         int cmp = x.key.compareTo(key);
         if (cmp == 0) {
             x.val = value;
@@ -42,6 +45,9 @@ public class BST<Key extends Comparable<Key>, Value> {
         } else {
             x.right = put(x.right, key, value);
         }
+
+
+        x.count = 1 + size(x.left) +  size(x.right);
         return x;
     }
 
@@ -60,6 +66,15 @@ public class BST<Key extends Comparable<Key>, Value> {
         }
 
         return null;
+    }
+
+    public int size() {
+        return size(root);
+    }
+
+    public int size(Node x) {
+        if (x == null) return 0;
+        return x.count;
     }
 
     public Node min() {
@@ -130,6 +145,42 @@ public class BST<Key extends Comparable<Key>, Value> {
         return floor;
     }
 
+    public Key ceiling(Key key) {
+        Node node = ceiling(root, key);
+
+        if (node != null) {
+            return node.key;
+        }
+
+        return null;
+    }
+
+    // recursive
+    public Node ceiling(Node x, Key key) {
+        if (x == null) {
+            return  null;
+        }
+
+        Node ceilingNode = null;
+
+        int cmp = x.key.compareTo(key);
+
+        if (cmp > 0) {
+            ceilingNode = x;
+            Node leftCeiling = ceiling(x.left, key);
+
+            if (leftCeiling != null) {
+                ceilingNode = leftCeiling;
+            }
+        } else if (cmp < 0) {
+            ceilingNode = ceiling(x.right, key);
+        } else {
+            return x;
+        }
+
+        return ceilingNode;
+    }
+
     public static void main(String[] args) {
         BST<Integer, String> bst = new BST<>();
         bst.put(5, "five");
@@ -152,5 +203,10 @@ public class BST<Key extends Comparable<Key>, Value> {
         System.out.println("Floor(6): " + bst.floorRec(6));
         System.out.println("Floor(1): " + bst.floorRec(1));
         System.out.println("Floor(8): " + bst.floorRec(8));
+        System.out.println("Ceiling(1): " + bst.ceiling(1));
+        System.out.println("Ceiling(2): " + bst.ceiling(3));
+        System.out.println("Ceiling(8): " + bst.ceiling(7));
+        System.out.println("Ceiling(9): " + bst.ceiling(9));
+        System.out.println("Size: " + bst.size());
     }
 }
