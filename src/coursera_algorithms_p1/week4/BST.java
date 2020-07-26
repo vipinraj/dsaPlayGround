@@ -11,6 +11,8 @@
 
 package week4;
 
+import edu.princeton.cs.algs4.Queue;
+
 import java.util.Collections;
 
 public class BST<Key extends Comparable<Key>, Value> {
@@ -69,6 +71,7 @@ public class BST<Key extends Comparable<Key>, Value> {
     }
 
     public int size() {
+        System.out.println(root.key);
         return size(root);
     }
 
@@ -77,21 +80,29 @@ public class BST<Key extends Comparable<Key>, Value> {
         return x.count;
     }
 
-    public Node min() {
-        Node curentNode = root;
+    public Key max() {
+        return max(root).key;
+    }
 
-        while (curentNode.left != null) {
-            curentNode = curentNode.left;
+    public Node max(Node x) {
+        Node curentNode = x;
+
+        while (curentNode.right != null) {
+            curentNode = curentNode.right;
         }
 
         return curentNode;
     }
 
-    public Node max() {
-        Node curentNode = root;
+    public Key min() {
+        return min(root).key;
+    }
 
-        while (curentNode.right != null) {
-            curentNode = curentNode.right;
+    public Node min(Node x) {
+        Node curentNode = x;
+
+        while (curentNode.left != null) {
+            curentNode = curentNode.left;
         }
 
         return curentNode;
@@ -181,6 +192,103 @@ public class BST<Key extends Comparable<Key>, Value> {
         return ceilingNode;
     }
 
+    public int rank(Key key) {
+        return rank(key, root);
+    }
+
+    public int rank(Key key, Node x) {
+        if (x == null) return 0;
+
+        int cmp = x.key.compareTo(key);
+        if (cmp > 0) {
+            return rank(key, x.left);
+        } else if (cmp < 0) {
+            return 1 + size(x.left) + rank(key, x.right);
+        } else {
+            return size(x.left);
+        }
+    }
+
+    public Iterable<Key> keys() {
+        Queue<Key> q = new Queue<>();
+        inorder(root, q);
+        return q;
+    }
+
+    private void inorder(Node x, Queue<Key> q) {
+        if (x == null) return;
+
+        inorder(x.left, q);
+        q.enqueue(x.key);
+        inorder(x.right, q);
+    }
+
+    public void deleteMin() {
+        root = deleteMin(root);
+    }
+
+    private Node deleteMin(Node x) {
+        if (x == null) return null;
+
+        if (x.left == null) {
+            return x.right;
+        }
+
+        x.left = deleteMin(x.left);
+        x.count = 1 + size(x.left) + size(x.right);
+        return x;
+    }
+
+    public void deleteMax() {
+        root = deleteMax(root);
+    }
+
+    private Node deleteMax(Node x) {
+        if (x == null) return null;
+        
+        if (x.right == null) {
+            return x.left;
+        }
+
+        x.right = deleteMax(x.right);
+        x.count = 1 + size(x.left) + size(x.right);
+        return x;
+    }
+
+    private void delete(Key key) {
+        root = delete(root, key);
+    }
+
+    private Node delete(Node x, Key key) {
+        if (x == null) {
+            return null;
+        }
+
+        int cmp = x.key.compareTo(key);
+
+        if (cmp > 0) {
+            x.left = delete(x.left, key);
+        } else if (cmp < 0) {
+            x.right = delete(x.right, key);
+        } else {
+            if (x.left == null && x.right == null) {
+                return null;
+            } else if (x.left == null) {
+                return x.right;
+            } else if (x.right == null) {
+                return x.left;
+            } else {
+                Node t = x;
+                x = min(x.right);
+                x.right = deleteMin(x.right);
+                x.left = t.left;
+            }
+        }
+
+        x.count = 1 + size(x.right) + size(x.left);
+        return x;
+    }
+
     public static void main(String[] args) {
         BST<Integer, String> bst = new BST<>();
         bst.put(5, "five");
@@ -193,8 +301,8 @@ public class BST<Key extends Comparable<Key>, Value> {
         System.out.println(bst.get(8));
         System.out.println(bst.get(1));
         System.out.println(bst.get(10));
-        System.out.println("Min: " + bst.min().val);
-        System.out.println("Max: " + bst.max().val);
+        System.out.println("Min: " + bst.min());
+        System.out.println("Max: " + bst.max());
         System.out.println("Floor(5): " + bst.floor(5));
         System.out.println("Floor(6): " + bst.floor(6));
         System.out.println("Floor(1): " + bst.floor(1));
@@ -208,5 +316,35 @@ public class BST<Key extends Comparable<Key>, Value> {
         System.out.println("Ceiling(8): " + bst.ceiling(7));
         System.out.println("Ceiling(9): " + bst.ceiling(9));
         System.out.println("Size: " + bst.size());
+        System.out.println("Rank(5): " + bst.rank(5));
+        System.out.println("Rank(1): " + bst.rank(1));
+        System.out.println("Rank(9): " + bst.rank(9));
+        System.out.println();
+
+        for (int k : bst.keys()) {
+            System.out.print(k + ", ");
+        }
+
+        // bst.deleteMin();
+        // bst.deleteMin();
+        // bst.deleteMin();
+        System.out.println();
+
+        for (int k : bst.keys()) {
+            System.out.print(k + ", ");
+        }
+
+        // bst.deleteMax();
+        // bst.deleteMax();
+        bst.delete(5);
+        bst.delete(1);
+        bst.delete(8);
+        System.out.println();
+
+        for (int k : bst.keys()) {
+            System.out.print(k + ", ");
+        }
+
+        System.out.println("\nRank(1): " + bst.rank(6));
     }
 }
