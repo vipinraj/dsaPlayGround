@@ -27,6 +27,17 @@ public class CheckIfBST {
         }
     }
 
+    private static class QueueEntry {
+        public Node<Integer, Integer> node;
+        public Integer min, max;
+
+        public QueueEntry(Node<Integer, Integer> node, Integer min, Integer max) {
+            this.node = node;
+            this.max = max;
+            this.min = min;
+        }
+    }
+
     public static void main(String[] args) {
         Node<Integer, Integer> root = new Node<Integer, Integer>(25, 25);
         root.left = new Node<Integer, Integer>(20, 20);
@@ -52,6 +63,32 @@ public class CheckIfBST {
         System.out.println(checkIsBST(root));
         root.left.right = new Node<Integer, Integer>(26, 26);
         System.out.println(checkIsBST(root));
+        System.out.println(checkIfBstBfs(root));
+        root.left.right = new Node<Integer, Integer>(22, 22);
+        System.out.println(checkIfBstBfs(root));
+    }
+
+    public static boolean checkIfBstBfs(Node root) {
+        if (root == null) {
+            return true;
+        }
+
+        Queue<QueueEntry> q = new Queue<>();
+        q.enqueue(new QueueEntry(root, Integer.MIN_VALUE, Integer.MAX_VALUE));
+
+        while (!q.isEmpty()) {
+            QueueEntry entry = q.dequeue();
+            if (entry.node.key > entry.min && entry.node.key < entry.max) {
+                if (entry.node.left != null)
+                    q.enqueue(new QueueEntry(entry.node.left, entry.min, entry.node.key));
+                if (entry.node.right != null)
+                    q.enqueue(new QueueEntry(entry.node.right, entry.node.key, entry.max));
+            } else {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private static boolean checkIfBSTRec(Node<Integer,Integer> root) {
@@ -78,6 +115,7 @@ public class CheckIfBST {
         return checkIsBSTHelper(root,list);
     }
 
+    // O(n) space solution
     private static boolean checkIsBSTHelper(Node<Integer,Integer> x, List<Integer> list) {
         if (x == null) {
             return true;
